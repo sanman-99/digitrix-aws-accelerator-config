@@ -1,0 +1,83 @@
+##################################################################################################################
+# For additional configurable services, features, and property descriptions,                                     #
+# please review our network configuration reference in our README.md:                                            #
+# https://awslabs.github.io/landing-zone-accelerator-on-aws/classes/_aws_accelerator_config.SecurityConfig.html  #
+##################################################################################################################
+
+homeRegion: &HOME_REGION us-east-1
+centralSecurityServices:
+  ##################################################################################################################
+  # Based upon AWS Security Reference Architecture (AWS SRA),                                                      #
+  # Assigning delegated administrator to security tooling (Audit) account                                          #
+  # https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/security-tooling.html #
+  ##################################################################################################################
+  delegatedAdminAccount: Audit
+  ebsDefaultVolumeEncryption:
+    enable: false
+    excludeRegions: []
+  s3PublicAccessBlock:
+    enable: false
+    excludeAccounts: []
+  scpRevertChangesConfig:
+    enable: false
+    snsTopicName: Security
+  macie:
+    enable: false
+    excludeRegions: []
+    policyFindingsPublishingFrequency: FIFTEEN_MINUTES
+    publishSensitiveDataFindings: false
+  guardduty:
+    enable: false
+    excludeRegions: []
+    s3Protection:
+      enable: false
+      excludeRegions: []
+    exportConfiguration:
+      enable: false
+      overrideExisting: false
+      destinationType: S3
+      exportFrequency: FIFTEEN_MINUTES
+  auditManager:
+    enable: false
+    excludeRegions: []
+    defaultReportsConfiguration:
+      enable: true
+      destinationType: S3
+    lifecycleRules:
+      - enabled: true
+        abortIncompleteMultipartUpload: 7
+        expiration: 1000
+        noncurrentVersionExpiration: 1000
+  detective:
+    enable: false
+    excludeRegions: []
+  ##################################################################################################################
+  # AWS Security Hub Configurations                                                                                #
+  ##################################################################################################################
+  securityHub:
+    enable: false
+    regionAggregation: false
+    excludeRegions: []
+    standards: []
+  ssmAutomation:
+    excludeRegions: []
+    documentSets: []
+accessAnalyzer:
+  enable: false
+iamPasswordPolicy:
+  allowUsersToChangePassword: true
+  hardExpiry: false
+  requireUppercaseCharacters: true
+  requireLowercaseCharacters: true
+  requireSymbols: true
+  requireNumbers: true
+  minimumPasswordLength: 14
+  passwordReusePrevention: 24
+  maxPasswordAge: 180
+awsConfig:
+  enableConfigurationRecorder: false
+  enableDeliveryChannel: false
+  ruleSets: []
+cloudWatch:
+  metricSets: []
+  alarmSets: []
