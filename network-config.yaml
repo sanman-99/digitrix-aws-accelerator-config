@@ -40,7 +40,7 @@ endpointPolicies:
 # a VPC in a single account and     #
 # region.                           #
 #####################################
-vpcs:
+vpcs: []
   
 ##############################################################
 # Global configuration for VPC flow logs                     #
