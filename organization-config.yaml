@@ -3,7 +3,8 @@
 # matches before continuing to execute the deployment pipeline.
 
 enable: true
-organizationalUnits: []
+organizationalUnits:
+  - name: Security
 serviceControlPolicies: []
 taggingPolicies: []
 backupPolicies: []
