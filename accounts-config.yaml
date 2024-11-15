@@ -21,5 +21,5 @@ workloadAccounts:
   - name: Secrets
     description: The security secrets account is used to store of the company related credentials or secrets.
     email: digi-aws-secrets-acct@digitrixllc.com
-    organizationalUnit: Security
+    organizationalUnit: Access
   
