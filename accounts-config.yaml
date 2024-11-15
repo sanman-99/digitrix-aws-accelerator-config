@@ -14,6 +14,10 @@ mandatoryAccounts:
     description: The security audit account (also referred to as the audit account). Do not change the name field for this mandatory account. Note, the account name key does not need to match the AWS account name.
     email: digi-aws-audit-acct@digitrixllc.com
     organizationalUnit: Security
+  - name: Secrets
+    description: The security secrets account is used to store of the company related credentials or secrets.
+    email: digi-aws-secrets-acct@digitrixllc.com
+    organizationalUnit: Security
 workloadAccounts: []
   # The "name" will be used to set the AWS Account name
   # The "name" value does not currently support spaces
