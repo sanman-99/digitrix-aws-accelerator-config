@@ -22,4 +22,8 @@ workloadAccounts:
     description: The security secrets account is used to store of the company related credentials or secrets.
     email: digi-aws-secrets-acct@digitrixllc.com
     organizationalUnit: Access
+  - name: Sandbox
+    description: The sandbox account is used to test and evaluate new AWS services within Digitrix.
+    email: digi-aws-sandbox-acct@digitrixllc.com
+    organizationalUnit: Infrastructure
   
