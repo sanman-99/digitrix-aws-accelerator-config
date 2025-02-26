@@ -40,7 +40,88 @@ endpointPolicies:
 # a VPC in a single account and     #
 # region.                           #
 #####################################
-vpcs: []
+vpcs: 
+  #RFC 1918 Range
+  # 10.0.0.0 - 10.255.255.255 (10/8 prefix)
+  # 172.16.0.0 - 172.31.255.255 (172.16/12 prefix)
+  # 192.168.0.0 - 192.168.255.255 (192.168/16 prefix)
+  # Replace the vpc and subnet cidr ranges based on the requirements
+
+  # Sandbox Account
+  # Deploys the Main VPC for the Sandbox Account.
+  - name: Sandbox-Main
+    account: Sandbox
+    region: *HOME_REGION
+    cidrs:
+      - 10.0.0.0/20
+    internetGateway: true
+    enableDnsHostnames: true
+    enableDnsSupport: true
+    instanceTenancy: default
+    routeTables:
+      - name: Sandbox-Public-Rt-A
+        routes:
+          - name: IgwRoute
+            destination: 0.0.0.0/0
+            type: internetGateway
+            target: IGW
+      - name: Sandbox-Public-Rt-B
+        routes:
+          - name: IgwRoute
+            destination: 0.0.0.0/0
+            type: internetGateway
+            target: IGW
+      - name: Sandbox-Private-Rt-A
+        routes:
+          - name: NatRoute
+            destination: 0.0.0.0/0
+            type: natGateway
+            target: Sandbox-Nat-A
+      - name: Sandbox-Private-Rt-B
+        routes:
+          - name: NatRoute
+            destination: 0.0.0.0/0
+            type: natGateway
+            target: Sandbox-Nat-B
+      - name: Sandbox-Isolated-Rt-A
+        routes: []
+      - name: Sandbox-Isolated-Rt-B
+        routes: []
+    subnets:
+      - name: Public-A
+        availabilityZone: 1
+        routeTable: Sandbox-Public-Rt-A
+        ipv4CidrBlock: 10.0.0.0/25
+      - name: Public-B
+        availabilityZone: 2
+        routeTable:  Sandbox-Public-Rt-B
+        ipv4CidrBlock: 10.0.0.128/25
+      - name: Private-A
+        availabilityZone: 1
+        routeTable: Sandbox-Private-Rt-A
+        ipv4CidrBlock: 10.0.1.0/23
+      - name: Private-B
+        availabilityZone: 2
+        routeTable: Sandbox-Private-Rt-B
+        ipv4CidrBlock: 10.0.3.0/23
+      - name: Isolated-A
+        availabilityZone: 1
+        routeTable: Sandbox-Isolated-Rt-A
+        ipv4CidrBlock: 10.0.5.0/23
+      - name: Isolated-B
+        availabilityZone: 2
+        routeTable: Sandbox-Isolated-Rt-B
+        ipv4CidrBlock: 10.0.7.32/23
+    natGateways:
+      - name: Sandbox-Nat-A
+        private: false
+        subnet: Public-A
+        tags: []
+      - name: Sandbox-Nat-B
+        private: false
+        subnet: Public-B
+        tags: []
+  
   
 ##############################################################
 # Global configuration for VPC flow logs                     #
