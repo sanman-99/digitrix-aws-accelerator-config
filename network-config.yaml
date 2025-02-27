@@ -49,6 +49,7 @@ vpcs:
 
   # Sandbox Account
   # Deploys the Main VPC for the Sandbox Account.
+  # The Network ACL for the Private subnets will allow outbound traffic, but not allow inbound public traffic.  This results in the same functionality as a NAT Gateway, but won't need to pay for one.
   - name: Sandbox-Main
     account: Sandbox
     region: *HOME_REGION
@@ -73,16 +74,16 @@ vpcs:
             target: IGW
       - name: Sandbox-Private-Rt-A
         routes:
-          - name: NatRoute
+          - name: IgwRoute
             destination: 0.0.0.0/0
-            type: natGateway
-            target: Sandbox-Nat-A
+            type: internetGateway
+            target: IGW
       - name: Sandbox-Private-Rt-B
         routes:
-          - name: NatRoute
+          - name: IgwRoute
             destination: 0.0.0.0/0
-            type: natGateway
-            target: Sandbox-Nat-B
+            type: internetGateway
+            target: IGW
       - name: Sandbox-Isolated-Rt-A
         routes: []
       - name: Sandbox-Isolated-Rt-B
@@ -112,15 +113,25 @@ vpcs:
         availabilityZone: 2
         routeTable: Sandbox-Isolated-Rt-B
         ipv4CidrBlock: 10.0.8.0/23
-    natGateways:
-      - name: Sandbox-Nat-A
-        private: false
-        subnet: Public-A
-        tags: []
-      - name: Sandbox-Nat-B
-        private: false
-        subnet: Public-B
-        tags: []
+    networkAcls:
+      - name: Private-Outbound-NACL
+        subnetAssociations:
+          - Private-A
+          - Private-B
+        inboundRules:
+          - rule: 200
+            protocol: -1
+            fromPort: -1
+            toPort: -1
+            action: allow
+            source: 10.0.0.0/20
+        outboundRules:
+          - rule: 200
+            protocol: -1
+            fromPort: -1
+            toPort: -1
+            action: allow
+            source: 0.0.0.0/0
   
   
 ##############################################################
