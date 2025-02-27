@@ -91,27 +91,27 @@ vpcs:
       - name: Public-A
         availabilityZone: 1
         routeTable: Sandbox-Public-Rt-A
-        ipv4CidrBlock: 10.0.0.0/25
+        ipv4CidrBlock: 10.0.1.0/25
       - name: Public-B
         availabilityZone: 2
         routeTable:  Sandbox-Public-Rt-B
-        ipv4CidrBlock: 10.0.0.128/25
+        ipv4CidrBlock: 10.0.1.128/25
       - name: Private-A
         availabilityZone: 1
         routeTable: Sandbox-Private-Rt-A
-        ipv4CidrBlock: 10.0.1.0/23
+        ipv4CidrBlock: 10.0.2.0/23
       - name: Private-B
         availabilityZone: 2
         routeTable: Sandbox-Private-Rt-B
-        ipv4CidrBlock: 10.0.3.0/23
+        ipv4CidrBlock: 10.0.4.0/23
       - name: Isolated-A
         availabilityZone: 1
         routeTable: Sandbox-Isolated-Rt-A
-        ipv4CidrBlock: 10.0.5.0/23
+        ipv4CidrBlock: 10.0.6.0/23
       - name: Isolated-B
         availabilityZone: 2
         routeTable: Sandbox-Isolated-Rt-B
-        ipv4CidrBlock: 10.0.7.32/23
+        ipv4CidrBlock: 10.0.8.0/23
     natGateways:
       - name: Sandbox-Nat-A
         private: false
