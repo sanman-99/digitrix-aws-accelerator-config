@@ -73,17 +73,9 @@ vpcs:
             type: internetGateway
             target: IGW
       - name: Sandbox-Private-Rt-A
-        routes:
-          - name: IgwRoute
-            destination: 0.0.0.0/0
-            type: internetGateway
-            target: IGW
+        routes: []
       - name: Sandbox-Private-Rt-B
-        routes:
-          - name: IgwRoute
-            destination: 0.0.0.0/0
-            type: internetGateway
-            target: IGW
+        routes: []
       - name: Sandbox-Isolated-Rt-A
         routes: []
       - name: Sandbox-Isolated-Rt-B
